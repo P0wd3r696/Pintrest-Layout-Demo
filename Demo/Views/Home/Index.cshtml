@@ -1,0 +1,104 @@
+﻿@model IEnumerable<Demo.Models.MyImages>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        callInitialView();
+        $('input:button').click(function () {
+            var category = $(this).val();
+            $('#myDiv').empty();
+
+            //JSON data
+            var url = '@Url.Content("~/")' + "Home/GetCategory";
+            var dataType = 'application/json; charset=utf-8';
+            var data = { 'Category': category };
+
+            $.ajax({
+                type: 'GET',
+                url: url,
+                dataType: 'json',
+                contentType: dataType,
+                data: data,
+                success: function (result) {
+
+                    for (var image = 0; image < result.length; image++) {
+                        $('#myDiv').append('<div class="item karya" id="ItemsId">'
+                            + '<img src="' + result[image].images + '" width="100%" alt="Card image cap"/>'
+                            + '<h4>Heading</h4>'
+                            + '<p>This is some random text</p>'
+                            + '</div>');
+                    }
+                    
+                    console.log('Data received: ');
+                    console.log(result);
+                }, error: function (error) {
+                    alert("Unable to fetch data at this moment " + error);
+                }
+            });
+        });
+        function callInitialView() {
+            var url = '@Url.Content("~/")' + "Home/GetCategory";
+            var dataType = 'application/json; charset=utf-8';
+            var data = { 'Category': "0" };
+
+            $.ajax({
+                type: 'GET',
+                url: url,
+                dataType: 'json',
+                contentType: dataType,
+                data: data,
+                success: function (result) {
+
+                    for (var image = 0; image < result.length; image++) {
+                        $('#myDiv').append('<div class="item karya" id="ItemsId">'
+                            + '<img src="' + result[image].images + '" width="100%" alt="Card image cap"/>'
+                            + '<h4>Heading</h4>'
+                            + '<p>This is some random text</p>'
+                            + '</div>');
+                    }
+
+                    console.log('Data received: ');
+                    console.log(result);
+                }, error: function (error) {
+                    alert("Unable to fetch data at this moment " + error);
+                }
+            });
+        }
+    });
+
+</script>
+
+
+@*I will have to put in an ID for the item karya*@
+<div class="container" style="padding-top:50px">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="masonry" id="myDiv">
+                
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="row">
+                <h3>Categories</h3>
+                <div class="btn-group-vertical" style="padding-top:13px;width:150px">
+                    <input type="button" class="btn btn-sm btn-outline-secondary" value="2" />
+                    <input type="button" class="btn btn-sm btn-outline-secondary" value="4" />
+                    <input type="button" class="btn btn-sm btn-outline-secondary" value="8" />
+                    <input type="button" class="btn btn-sm btn-outline-secondary" value="16" />
+                </div>
+                <div style="padding-top:20px">
+                    <h3>Top Stories</h3>
+                    <p>
+                        This is where a list of the top trending stories will be!!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

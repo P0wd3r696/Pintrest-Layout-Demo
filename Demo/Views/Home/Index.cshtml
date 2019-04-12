@@ -6,21 +6,16 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-@*<script>
-    $(document).ready(function () {
-        myFunction();
-    });
-    function myFunction() {
-        var str = $("#demo").val();
-        var res = str.substring(1, 5);
-        document.getElementById("demo").innerHTML = res;
-    }
-</script>*@
+
 <script type="text/javascript">
     $(document).ready(function () {
         getInfinte();
+        getCategoryList();
         callInitialView();
-        $('input:button').click(function () {
+
+        //get related categories after button click
+        function getCategoryList() {
+            $('input:button').click(function () {
             var category = $(this).val();
             $('#myDiv').empty();
 
@@ -38,6 +33,7 @@
                 success: function (result) {
 
                     for (var image = 0; image < result.length; image++) {
+                        getInfinte();
                         $('#myDiv').append('<div class="item karya" id="ItemsId">'
                             + '<img src="' + result[image].images + '" width="100%" alt="Card image cap"/>'
                             + '<h4>Heading</h4>'
@@ -49,9 +45,12 @@
                     console.log(result);
                 }, error: function (error) {
                     alert("Unable to fetch data at this moment " + error);
-                }
+                    }
+                });
             });
-        });
+        };
+
+        //when the page loads, load all of the content and all categories
         function callInitialView() {
             var url = '@Url.Content("~/")' + "Home/GetCategory";
             var dataType = 'application/json; charset=utf-8';
@@ -64,8 +63,9 @@
                 contentType: dataType,
                 data: data,
                 success: function (result) {
-
+                    
                     for (var image = 0; image < result.length; image++) {
+                        getInfinte();
                         $('#myDiv').append('<div class="item karya" id="ItemsId">'
                             + '<img src="' + result[image].images + '" width="100%" alt="Card image cap"/>'
                             + '<h4>Heading</h4>'
@@ -81,20 +81,21 @@
             });
         };
         function getInfinte() {
-                $(".karya").slice(16).hide();
-                
-                var mincount = 8;
-                var maxcount = 16;
             
-                $(window).scroll(function () {
-                    if ($(window).scrollTop() + $(window).height() >= $(document).height() - 50) {
-                        $(".karya").slice(mincount, maxcount).slideDown(350);
+            $(".karya").slice(16).hide();
 
-                        mincount = mincount + 8;
-                        maxcount = maxcount + 16;
-                    }
-                });
-            }
+            var mincount = 8;
+            var maxcount = 16;
+            
+            $(window).scroll(function () {
+                if ($(window).scrollTop() + $(window).height() >= $(document).height() - 50) {
+                    $(".karya").slice(mincount, maxcount).slideDown(350);
+
+                    mincount = mincount + 8;
+                    maxcount = maxcount + 16;
+                }
+            });
+        }
     });
 
 </script>

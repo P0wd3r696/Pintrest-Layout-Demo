@@ -6,9 +6,19 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-
+@*<script>
+    $(document).ready(function () {
+        myFunction();
+    });
+    function myFunction() {
+        var str = $("#demo").val();
+        var res = str.substring(1, 5);
+        document.getElementById("demo").innerHTML = res;
+    }
+</script>*@
 <script type="text/javascript">
     $(document).ready(function () {
+        getInfinte();
         callInitialView();
         $('input:button').click(function () {
             var category = $(this).val();
@@ -31,7 +41,7 @@
                         $('#myDiv').append('<div class="item karya" id="ItemsId">'
                             + '<img src="' + result[image].images + '" width="100%" alt="Card image cap"/>'
                             + '<h4>Heading</h4>'
-                            + '<p>This is some random text</p>'
+                            + '<p id="demo">This is some random text</p>'
                             + '</div>');
                     }
                     
@@ -69,7 +79,22 @@
                     alert("Unable to fetch data at this moment " + error);
                 }
             });
-        }
+        };
+        function getInfinte() {
+                $(".karya").slice(16).hide();
+                
+                var mincount = 8;
+                var maxcount = 16;
+            
+                $(window).scroll(function () {
+                    if ($(window).scrollTop() + $(window).height() >= $(document).height() - 50) {
+                        $(".karya").slice(mincount, maxcount).slideDown(350);
+
+                        mincount = mincount + 8;
+                        maxcount = maxcount + 16;
+                    }
+                });
+            }
     });
 
 </script>
@@ -86,12 +111,19 @@
         <div class="col-md-2">
             <div class="row">
                 <h3>Categories</h3>
-                <div class="btn-group-vertical" style="padding-top:13px;width:150px">
+                <div class="btn-group-vertical" style="padding-top:13px;width:300px">
                     <input type="button" class="btn btn-sm btn-outline-secondary" value="2" />
                     <input type="button" class="btn btn-sm btn-outline-secondary" value="4" />
                     <input type="button" class="btn btn-sm btn-outline-secondary" value="8" />
                     <input type="button" class="btn btn-sm btn-outline-secondary" value="16" />
                 </div>
+                @*<ul class="list-group list-group-flush" style="padding-top:13px;width:300px">
+                    <li class="list-group-item"><a href="#">2</a></li>
+                    <li class="list-group-item"><a href="#">4</a></li>
+                    <li class="list-group-item"><a href="#">8</a></li>
+                    <li class="list-group-item"><a href="#">16</a></li>
+                    <li class="list-group-item"><a href="#">32</a></li>
+                </ul>*@
                 <div style="padding-top:20px">
                     <h3>Top Stories</h3>
                     <p>

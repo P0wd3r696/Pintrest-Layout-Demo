@@ -2,65 +2,76 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
+
+h4{
+    padding:10px;
+}
+p{
+    padding:10px;
+}
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
 }
-.masonry { /* Masonry container */
+/* Masonry container */
+/*.masonry {
     column-count: 4;
     column-gap: 1em;
-}
+}*/
 
-
-.item { /* Masonry bricks or child elements */
+/* Masonry bricks or child elements */
+/*.item { 
     display: inline-block;
     margin: 0 0 1em;
     width: 100%;
@@ -69,39 +80,65 @@ body {
     border-radius: 10px;
     overflow: hidden;
     background-color: white;
+}*/
+
+.masonry {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+    grid-auto-rows: 10px;
+}
+.content {
+    border: 1px solid;
+    border-color: lightgrey;
+    border-radius: 10px;
+    overflow: hidden;
+}
+@media screen and (min-width: 767px) {
+
+    .nav-item {
+        display: none;
+        visibility: hidden;
+    }
 }
 
+
+/*
 @media only screen and (max-width: 600px) and (min-width: 10px) {
-    .masonry { /* Masonry container */
+    .masonry { 
         column-count: 1;
         column-gap: 1em;
     }
+
     .col-md-2 {
         display: none;
     }
 }
 
-/* Hide/rearrange for smaller screens */
+
 @media screen and (min-width: 767px) {
-    /* Hide captions */
+    
     .nav-item {
-        display:none;
-        visibility:hidden;
+        display: none;
+        visibility: hidden;
     }
 }
 
 @media only screen and (max-width: 800px) and (min-width: 601px) {
-    .masonry { /* Masonry container */
+    .masonry { 
         column-count: 2;
         column-gap: 1em;
     }
+
     .col-md-2 {
         display: none;
     }
 }
+
 @media only screen and (max-width: 1000px) and (min-width: 801px) {
-    .masonry { /* Masonry container */
+    .masonry { 
         column-count: 3;
         column-gap: 1em;
     }
 }
+*/

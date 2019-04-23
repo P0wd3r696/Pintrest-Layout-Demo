@@ -76,7 +76,7 @@ namespace Demo.Controllers
 
             if(imageCount == 0)
             {
-                var allImages = await _db.Images.ToListAsync();
+                var allImages = await _db.Images.OrderByDescending(m=>m.Images).ToListAsync();
 
                 return Json(allImages);
             }

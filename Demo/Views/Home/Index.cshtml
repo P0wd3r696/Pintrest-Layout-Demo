@@ -2,102 +2,9 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        getInfinte();
-        getCategoryList();
-        callInitialView();
-
-        //get related categories after button click
-        function getCategoryList() {
-            $('input:button').click(function () {
-            var category = $(this).val();
-            $('#myDiv').empty();
-
-            //JSON data
-            var url = '@Url.Content("~/")' + "Home/GetCategory";
-            var dataType = 'application/json; charset=utf-8';
-            var data = { 'Category': category };
-
-            $.ajax({
-                type: 'GET',
-                url: url,
-                dataType: 'json',
-                contentType: dataType,
-                data: data,
-                success: function (result) {
-
-                    for (var image = 0; image < result.length; image++) {
-                        getInfinte();
-                        $('#myDiv').append('<div class="item karya" id="ItemsId">'
-                            + '<img src="' + result[image].images + '" width="100%" alt="Card image cap"/>'
-                            + '<h4>Heading</h4>'
-                            + '<p id="demo">This is some random text</p>'
-                            + '</div>');
-                    }
-                    
-                    console.log('Data received: ');
-                    console.log(result);
-                }, error: function (error) {
-                    alert("Unable to fetch data at this moment " + error);
-                    }
-                });
-            });
-        };
-
-        //when the page loads, load all of the content and all categories
-        function callInitialView() {
-            var url = '@Url.Content("~/")' + "Home/GetCategory";
-            var dataType = 'application/json; charset=utf-8';
-            var data = { 'Category': "0" };
-
-            $.ajax({
-                type: 'GET',
-                url: url,
-                dataType: 'json',
-                contentType: dataType,
-                data: data,
-                success: function (result) {
-                    
-                    for (var image = 0; image < result.length; image++) {
-                        getInfinte();
-                        $('#myDiv').append('<div class="item karya" id="ItemsId">'
-                            + '<img src="' + result[image].images + '" width="100%" alt="Card image cap"/>'
-                            + '<h4>Heading</h4>'
-                            + '<p>This is some random text</p>'
-                            + '</div>');
-                    }
-
-                    console.log('Data received: ');
-                    console.log(result);
-                }, error: function (error) {
-                    alert("Unable to fetch data at this moment " + error);
-                }
-            });
-        };
-        function getInfinte() {
-            
-            $(".karya").slice(16).hide();
-
-            var mincount = 8;
-            var maxcount = 16;
-            
-            $(window).scroll(function () {
-                if ($(window).scrollTop() + $(window).height() >= $(document).height() - 50) {
-                    $(".karya").slice(mincount, maxcount).slideDown(350);
-
-                    mincount = mincount + 8;
-                    maxcount = maxcount + 16;
-                }
-            });
-        }
-    });
-
 </script>
 
 
@@ -106,7 +13,7 @@
     <div class="row">
         <div class="col-md-10">
             <div class="masonry" id="myDiv">
-                
+
             </div>
         </div>
         <div class="col-md-2">
@@ -119,12 +26,12 @@
                     <input type="button" class="btn btn-sm btn-outline-secondary" value="16" />
                 </div>
                 @*<ul class="list-group list-group-flush" style="padding-top:13px;width:300px">
-                    <li class="list-group-item"><a href="#">2</a></li>
-                    <li class="list-group-item"><a href="#">4</a></li>
-                    <li class="list-group-item"><a href="#">8</a></li>
-                    <li class="list-group-item"><a href="#">16</a></li>
-                    <li class="list-group-item"><a href="#">32</a></li>
-                </ul>*@
+                        <li class="list-group-item"><a href="#">2</a></li>
+                        <li class="list-group-item"><a href="#">4</a></li>
+                        <li class="list-group-item"><a href="#">8</a></li>
+                        <li class="list-group-item"><a href="#">16</a></li>
+                        <li class="list-group-item"><a href="#">32</a></li>
+                    </ul>*@
                 <div style="padding-top:20px">
                     <h3>Top Stories</h3>
                     <p>

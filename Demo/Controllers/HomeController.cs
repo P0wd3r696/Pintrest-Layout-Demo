@@ -70,13 +70,13 @@ namespace Demo.Controllers
             return View(images);
         }
 
-        public async Task<JsonResult> GetCategory(string Category)
+        public async Task<JsonResult> GetCategory(string Category, int pageIndex, int pageSize)
         {
             int imageCount = Convert.ToInt32(Category);
 
             if(imageCount == 0)
             {
-                var allImages = await _db.Images.OrderByDescending(m=>m.Images).ToListAsync();
+                var allImages = await _db.Images.OrderByDescending(m=>m.Images).Skip(pageIndex * pageSize).Take(pageSize).ToListAsync();
 
                 return Json(allImages);
             }

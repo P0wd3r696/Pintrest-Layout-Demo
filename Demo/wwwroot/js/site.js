@@ -1,7 +1,17 @@
-﻿getInfinte();
+﻿//getInfinte();
 //resizeAllGridItems();
+var pageSize = 10;
+var pageIndex = 0;
+
 getCategoryList();
 callInitialView();
+
+$(window).scroll(function () {
+    if ($(window).scrollTop() ===
+        $(document).height() - $(window).height()) {
+        callInitialView();
+    }
+});
 
 $(window).on('load', function () {
     resizeAllGridItems();
@@ -25,8 +35,9 @@ function getCategoryList() {
             data: data,
             success: function (result) {
                 for (var image = 0; image < result.length; image++) {
+                    //getInfinte();
                     resizeAllGridItems();
-                    getInfinte();
+                    imagesHaveLoaded();
                     $('#myDiv').append('<div class="item karya" id="ItemsId">'
                         + '<img src="' + result[image].images + '" width="100%" alt="Card image cap"/>'
                         + '<h4>Heading</h4>'
@@ -43,10 +54,12 @@ function getCategoryList() {
     });
 }
 //when the page loads, load all of the content and all categories
+
 function callInitialView() {
+
     var url = "Home/GetCategory";
     var dataType = 'application/json; charset=utf-8';
-    var data = { 'Category': "0" };
+    var data = { 'Category': "0", "pageindex": pageIndex, "pagesize": pageSize };
     $.ajax({
         type: 'GET',
         url: url,
@@ -56,7 +69,7 @@ function callInitialView() {
         success: function (result) {
             
             for (var image = 0; image < result.length; image++) {
-                getInfinte();
+                //getInfinte();
                 resizeAllGridItems();
                 imagesHaveLoaded();
                 $('#myDiv').append('<div class="item karya" id="ItemsId">'
@@ -66,27 +79,26 @@ function callInitialView() {
                     + '<p>This is some random text</p>'
                     + '</div>'
                     + '</div>');
-                
             }
+            pageIndex+=1;
             
             console.log('Data received: ');
             console.log(result);
         }, error: function (error) {
-            alert("Unable to fetch data at this moment " + error);
+            console.log("No more content");
         }
     });
 }
+
 function getInfinte() {
     
     $(".karya").slice(16).hide();
-    var mincount = 8;
     var maxcount = 16;
 
     $(window).scroll(function () {
         if ($(window).scrollTop() + $(window).height() >= $(document).height() - 50) {
             
-            $(".karya").slice(mincount, maxcount).slideDown(350);
-            mincount = mincount + 8;
+            $(".karya").slice(maxcount).show(350);
             maxcount = maxcount + 16;
             resizeAllGridItems();
         }
@@ -96,7 +108,7 @@ function getInfinte() {
 //=========================================================================================================================================
 
 //resizeAllGridItems();
-imagesHaveLoaded();
+//imagesHaveLoaded();
 
 //window.addEventListener("load", resizeAllGridItems);
 window.addEventListener("resize", resizeAllGridItems);

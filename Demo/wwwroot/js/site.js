@@ -67,27 +67,41 @@ function callInitialView() {
         contentType: dataType,
         data: data,
         success: function (result) {
-            
-            for (var image = 0; image < result.length; image++) {
-                //getInfinte();
-                resizeAllGridItems();
-                imagesHaveLoaded();
-                $('#myDiv').append('<div class="item karya" id="ItemsId">'
-                    + '<div class="content">'
-                    + '<img src="' + result[image].images + '" width="100%" alt="Card image cap"/>'
-                    + '<h4>Heading</h4>'
-                    + '<p>This is some random text</p>'
-                    + '</div>'
-                    + '</div>');
+            if (result !== null) {
+                for (var image = 0; image < result.length; image++) {
+                    //getInfinte();
+                    resizeAllGridItems();
+                    imagesHaveLoaded();
+                    $('#myDiv').append('<div class="item karya" id="ItemsId">'
+                        + '<div class="content">'
+                        + '<img src="' + result[image].images + '" width="100%" alt="Card image cap"/>'
+                        + '<h4 id="summary"> ' + mySubstring("Heading") + '</h4>'
+                        + '<p>This is some random text</p>'
+                        + '</div>'
+                        + '</div>').slideDown(350);
+                }
+                pageIndex += 1;
             }
-            pageIndex+=1;
-            
+            else {
+                $("#progress").hide();
+            }
             console.log('Data received: ');
             console.log(result);
-        }, error: function (error) {
+        },
+        beforeSend: function () {
+            $("#progress").show();
+        },
+        complete: function () {
+            $("#progress").hide();
+        },
+        error: function (error) {
             console.log("No more content");
         }
     });
+}
+
+function mySubstring(str) {
+    return str.substring(0, 2);
 }
 
 function getInfinte() {

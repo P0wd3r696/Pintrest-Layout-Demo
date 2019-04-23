@@ -72,6 +72,7 @@ namespace Demo.Controllers
 
         public async Task<JsonResult> GetCategory(string Category, int pageIndex, int pageSize)
         {
+            System.Threading.Thread.Sleep(4000);
             int imageCount = Convert.ToInt32(Category);
 
             if(imageCount == 0)
